@@ -1,24 +1,4 @@
-# vue-ele-admin-ts
+# vue-element-admin-ts
+使用vue、element-ui、typescript等相关技术开发的后台管理系统。
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[地址]()
