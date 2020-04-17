@@ -1,7 +1,20 @@
 /* Variables */
 
-
-// Login 
+// Login
 $login_bg: #2d3a4b;
 $light_gray: #eee;
-$dark_gray:#889aa4;
+$dark_gray: #889aa4;
+
+// SideBar
+$sideBarWidth: 210px;
+$menuBg: #304156;
+$menuText: #bfcbd9;
+$menuActiveText: #409eff;
+
+// use sass variables in ts
+// https://mattferderer.com/use-sass-variables-in-typescript-and-javascript
+:export {
+  menuBg: $menuBg;
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+}
