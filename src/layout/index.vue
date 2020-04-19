@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wapper">
+  <div class="app-wapper" :class="classObj">
     <side-bar class="sidebar-container"></side-bar>
 
     <div class="main-container">
@@ -12,6 +12,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { SideBar, AppMain, NavBar } from "./components";
+import { AppModule } from "@/store/modules/app";
 
 @Component({
   name: "Layout",
@@ -21,7 +22,18 @@ import { SideBar, AppMain, NavBar } from "./components";
     NavBar,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  get sidebar() {
+    return AppModule.sidebar;
+  }
+  get classObj() {
+    return {
+      hideSidebar: !this.sidebar.opened,
+      openSidebar: this.sidebar.opened,
+      withoutAnimation: this.sidebar.withoutAnimation,
+    };
+  }
+}
 </script>
 <style lang="scss">
 .sidebar-container {
@@ -41,9 +53,26 @@ export default class extends Vue {}
   height: 100%;
   position: fixed;
   top: 0;
+  transition: width 0.28s; // 添加过渡动画
+}
+.hideSidebar {
+  .sidebar-container {
+    width: 54px;
+  }
+  .main-container {
+    margin-left: 54px;
+  }
 }
 
 .main-container {
   margin-left: $sideBarWidth;
+  transition: margin-left 0.28s;
+}
+
+.withoutAnimation {
+  .main-container,
+  .sidebar-container {
+    transition: none;
+  }
 }
 </style>
