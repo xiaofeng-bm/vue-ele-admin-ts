@@ -5,8 +5,9 @@ import {
   Mutation,
   getModule,
 } from "vuex-module-decorators";
-import { getToken, setToken } from "@/utils/auth";
+import { getToken, setToken, removeToken } from "@/utils/auth";
 import { login, getUserInfo } from "@/api/user";
+import { resetRouter } from "@/router";
 import store from "@/store";
 
 export interface IUserState {
@@ -54,6 +55,25 @@ class User extends VuexModule implements IUserState {
     }
     this.SET_ROLES(roles);
     this.SET_NAME(name);
+  }
+  // 退出登录
+  @Action
+  public async LogOut() {
+    if (this.token === "") {
+      throw Error("LogOut: token is undefined");
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        removeToken();
+        resetRouter();
+
+        this.SET_TOKEN("");
+        this.SET_ROLES([]);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 
