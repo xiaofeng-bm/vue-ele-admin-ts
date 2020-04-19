@@ -12,8 +12,4 @@ npm run build
 rm -rf /root/nginx/upload/vue-admin
 
 # 移动到/root/nginx/upload/vue-admin目录下并改名为vue-admin 
-<<<<<<< HEAD
-mv dist/  /root/nginx/upload/vue-admin  
-=======
 mv dist/ /root/nginx/upload/vue-admin
->>>>>>> 9edd0c7905da1a1aab9208b456551fb0b0078f40
