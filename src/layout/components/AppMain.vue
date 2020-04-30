@@ -1,7 +1,9 @@
 <template>
-  <div>
-    我是appMain住文件
-  </div>
+  <section class="app-main">
+    <transition name="fade-transform">
+      <router-view></router-view>
+    </transition>
+  </section>
 </template>
 
 <script lang="ts">
@@ -17,5 +19,9 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+.app-main {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 </style>

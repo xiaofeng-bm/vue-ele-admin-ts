@@ -20,7 +20,7 @@
             <svg-icon :icon-class="theOnlyOneChild.meta.icon"></svg-icon>
           </div>
 
-          <span v-if="theOnlyOneChild.meta.title">{{
+          <span v-if="theOnlyOneChild.meta.title" slot="title">{{
             theOnlyOneChild.meta.title
           }}</span>
         </el-menu-item>

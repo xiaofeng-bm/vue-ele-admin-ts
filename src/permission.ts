@@ -24,7 +24,9 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
         // 设置replace: true不会在浏览器留下浏览痕迹
         next({ ...to, replace: true });
       } catch (error) {
-        //
+        // remove token and redirect to login page
+        UserModule.ResetToken();
+        next(`/login?redirect=${to.path}`);
       }
     }
     // 设置replace：true，浏览器不会留下历史记录

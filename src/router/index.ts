@@ -27,14 +27,17 @@ export const baseRoutes: RouteConfig[] = [
   {
     path: "/table",
     component: Layout,
+    meta: {
+      title: "表格",
+      icon: "table",
+    },
     children: [
       {
-        path: "table1",
-        component: () => import("@/views/table/table1.vue"),
+        path: "drag-table",
+        component: () => import("@/views/table/drag-table.vue"),
         meta: {
-          title: "表格",
-          icon: "table",
-        },
+          title: '拖拽表格'
+        }
       },
     ],
   },

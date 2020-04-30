@@ -7,7 +7,7 @@ function resolve(dir) {
 // dev服务端口
 const devServerPort = 4396;
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin/' : './',
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin/' : '/',
   devServer: {
     port: devServerPort, // 端口
     open: true, // 启动时自动打开

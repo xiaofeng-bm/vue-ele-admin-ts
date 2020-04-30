@@ -56,6 +56,14 @@ class User extends VuexModule implements IUserState {
     this.SET_ROLES(roles);
     this.SET_NAME(name);
   }
+  // 获取user信息失败，清除token
+  @Action
+  public ResetToken() {
+    removeToken();
+    this.SET_TOKEN("");
+    this.SET_ROLES([]);
+  }
+
   // 退出登录
   @Action
   public async LogOut() {

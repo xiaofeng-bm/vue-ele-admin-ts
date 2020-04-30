@@ -1,0 +1,21 @@
+/*
+ * @Description: 过度动画
+ * @Author: 晓枫
+ * @Date: 2020-04-30 09:56:20
+ * @LastEditTime: 2020-04-30 10:00:07
+ */
+
+//  fade-transform
+.fade-transform-enter-active,
+.fade-transform-leave-active {
+  transition: all 0.5s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
