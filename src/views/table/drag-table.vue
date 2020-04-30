@@ -225,10 +225,6 @@ export default class extends Vue {
       }
     })
   }
-
-  private resetForm() {
-    
-  }
 }
 </script>
 <style>

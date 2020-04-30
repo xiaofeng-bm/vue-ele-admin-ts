@@ -5,6 +5,9 @@ set -e
 # 拉取代码
 git pull 
 
+# 安装node_modules包
+npm install
+
 # 打包
 npm run build
 
