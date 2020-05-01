@@ -77,7 +77,11 @@
       {{ newList }}
     </div>
 
-    <el-dialog title="新增医院" width="30%" :visible.sync="addHisDialogInfo.visible">
+    <el-dialog
+      title="新增医院"
+      width="30%"
+      :visible.sync="addHisDialogInfo.visible"
+    >
       <el-form
         ref="addHisForm"
         :model="addHisDialogInfo.model"
@@ -134,8 +138,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Super } from "@/api/types";
 import Sortable from "sortablejs";
-import { Form } from 'element-ui';
-import { addHosp, getHospList } from '@/api/hospital';
+import { Form } from "element-ui";
+import { addHosp, getHospList } from "@/api/hospital";
 
 @Component({
   name: "DragTable",
@@ -168,7 +172,7 @@ export default class extends Vue {
       ],
       level: [{ required: true, message: "行政级别不能为空", trigger: "blur" }],
       province: [{ required: true, message: "省份不能为空", trigger: "blur" }],
-      city: [{ required: true, message: "城市不能为空", trigger: "blur" }]
+      city: [{ required: true, message: "城市不能为空", trigger: "blur" }],
     },
   };
 
@@ -218,12 +222,12 @@ export default class extends Vue {
   // 新增医院
   private handleAddHis() {
     (this.$refs.addHisForm as Form).validate(async (valid: boolean) => {
-      if(valid) {
+      if (valid) {
         await addHosp(this.addHisDialogInfo.model);
         this.addHisDialogInfo.visible = false;
         this.getList();
       }
-    })
+    });
   }
 }
 </script>

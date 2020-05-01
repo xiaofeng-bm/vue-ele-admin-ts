@@ -39,6 +39,13 @@ export const baseRoutes: RouteConfig[] = [
           title: '拖拽表格'
         }
       },
+      {
+        path: 'config-table',
+        component: () => import("@/views/table/config-table.vue"),
+        meta: {
+          title: '可配置表格'
+        }
+      }
     ],
   },
   {

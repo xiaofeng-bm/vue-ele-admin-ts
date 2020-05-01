@@ -7,16 +7,18 @@ import store from "./store";
 import "@/style/normalize.css";
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-
 import "@/style/index.scss";
 
 import Settings from "./settings";
+
+import BmTable from "@/components/BmTable/index.vue";
+Vue.component("bm-table", BmTable);
 
 // 引入svg-Icon
 import "@/icons";
 
 Vue.use(Element, {
-  size: Settings.elementSize
+  size: Settings.elementSize,
 });
 
 // 引入权限判断守卫
@@ -27,5 +29,5 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
