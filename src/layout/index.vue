@@ -65,6 +65,7 @@ export default class extends Vue {
 }
 
 .main-container {
+  height: 100%;
   margin-left: $sideBarWidth;
   transition: margin-left 0.28s;
 }
