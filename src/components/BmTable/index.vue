@@ -10,8 +10,10 @@
       <el-table-column
         :type="getAttribute(tableConfig.config.title[key], 'type')"
         :label="getAttribute(tableConfig.config.title[key], 'label')"
+        :fixed="getAttribute(tableConfig.config.title[key], 'fixed')"
         :prop="key"
         :width="getAttribute(tableConfig.config.title[key], 'width')"
+        :align="getAttribute(tableConfig.config.title[key], 'align')"
         :min-width="getAttribute(tableConfig.config.title[key], 'min-width')"
         :sortable="getAttribute(tableConfig.config.title[key], 'sortable')"
         :show-overflow-tooltip="getAttribute(tableConfig.config.title[key], 'show-overflow-tooltip')"
@@ -19,10 +21,11 @@
 
       </el-table-column>
     </slot>
+    <slot name="append"></slot>
   </el-table>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { isObject } from '@/utils/index';
 
 interface ITableConfig {
@@ -38,9 +41,11 @@ interface ITableConfig {
 export default class extends Vue {
   @Prop({ required: true }) private config!: ITableConfig;
 
+
   private name = '白敏'
 
   get tableConfig() {
+    console.log('触发了')
     const _config = Object.assign({}, this.config);
     if (typeof _config.config === "undefined") {
       _config.config = {
