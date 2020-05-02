@@ -3,7 +3,9 @@
     <side-bar class="sidebar-container"></side-bar>
 
     <div class="main-container">
-      <nav-bar></nav-bar>
+      <div class="fixed-header">
+        <nav-bar></nav-bar>
+      </div>
       <app-main></app-main>
     </div>
   </div>
@@ -62,10 +64,13 @@ export default class extends Vue {
   .main-container {
     margin-left: 54px;
   }
+  .fixed-header {
+    width: calc(100% - 54px);
+  }
 }
 
 .main-container {
-  height: 100%;
+  min-height: 100%;
   margin-left: $sideBarWidth;
   transition: margin-left 0.28s;
 }
@@ -75,5 +80,14 @@ export default class extends Vue {
   .sidebar-container {
     transition: none;
   }
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
+  z-index: 9;
 }
 </style>

@@ -4,9 +4,14 @@ export interface Super {
 
 export interface IArticalData {
   id: number
-  hisCode: string 
-  hisName: string 
+  hosCode: string 
+  hosName: string 
   level: string
   province: string
   city: string
+}
+
+export interface IConfig {
+  config: Object | null,
+  table: any[]
 }

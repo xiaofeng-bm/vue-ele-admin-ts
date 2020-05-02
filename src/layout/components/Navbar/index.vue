@@ -60,7 +60,7 @@ export default class extends Vue {
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .hamburger-container {
-    display: inline-block;
+    float: left;
     height: 100%;
     padding: 0 15px;
     line-height: 50px;

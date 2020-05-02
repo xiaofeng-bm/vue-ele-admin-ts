@@ -3,7 +3,7 @@
 set -e
 
 # 拉取代码
-git pull 
+git pull -rebase
 
 # 安装node_modules包
 npm install:

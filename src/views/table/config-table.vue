@@ -17,7 +17,66 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import JsonEditor from "@/components/JsonEditor/index.vue";
 
-const jsonData = `{"config":{"show":["name","age"],"title":{"name":"姓名","age": {"label": "年龄", "width": "100"} }},"table":[{"name":"摆明","age":22},{"name":"刘浩","age":122222222222222222222222}]}`;
+const jsonData = `{
+  "config":{
+    "show":["type", "hosCode", "hosName", "level", "province", "city", "address"],
+    "title":{
+      "type": {
+        "type": "selection",
+        "align": "center",
+        "width": 60,
+        "fixed": "left"
+      },
+      "hosCode":"医院编码",
+      "hosName": {"label": "医院名称", "width": "200"},
+      "level": { "label": "行政级别", "width": "100"},
+      "province": { "label": "省份", "width": "100"},
+      "city": { "label": "城市", "width": "100"},
+      "address": { "label": "医院地址", "show-overflow-tooltip": true, "width": "400"}
+    }
+  },
+  "table":[{
+    "id": 1,
+    "hosCode": "9141",
+    "hosName": "中国人民解放军第306医院（北京第306医院）",
+    "level": "三级医",
+    "province": "北京市",
+    "city": "北京市",
+    "address": ""
+  }, {
+    "id": 2,
+    "hosCode": "9156",
+    "hosName": "北京市丰台区妇幼保健院（丰台妇幼保健院）",
+    "level": "二级医院",
+    "province": "北京市",
+    "city": "北京市",
+    "address": ""
+  }, {
+    "id": 3,
+    "hosCode": "9246",
+    "hosName": "北京市南苑医院",
+    "level": "二级医院",
+    "province": "北京市",
+    "city": "北京市",
+    "address": ""
+  }, {
+    "id": 4,
+    "hosCode": "50978",
+    "hosName": "北京市人民医院（北京大学人民医院）",
+    "level": "二级医院",
+    "province": "北京市",
+    "city": "北京市",
+    "address": ""
+  }, {
+    "id": 5,
+    "hosCode": "38328",
+    "hosName": "北京协和医院",
+    "level": "三级医院",
+    "province": "北京市",
+    "city": "北京市",
+    "address": "东单院区）北京市东城区帅府园一号，100730；（西单院区）北京市西城区大木仓胡同41号，100032"
+  }]
+}`;
 
 @Component({
   name: "ConfigTable",
@@ -29,30 +88,23 @@ export default class extends Vue {
   private value = JSON.parse(jsonData);
   private config = JSON.parse(jsonData);
 
-
-  @Watch('value')
+  @Watch("value")
   private onValueChange(val: string) {
     this.config = JSON.parse(val);
   }
-  // get config() {
-  //   if (typeof this.value === "string") {
-  //     return JSON.parse(this.value);
-  //   } else {
-  //     return this.value;
-  //   }
-  // }
 }
 </script>
 
 <style lang="scss" scoped>
 .content-wrapper {
   display: flex;
-  width: 100%;
+  min-width: 100%;
   height: 100%;
 
   .table-container,
   .eidtor-container {
     flex: 1;
+    overflow: auto;
   }
 }
 </style>
