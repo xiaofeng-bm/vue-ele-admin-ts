@@ -63,13 +63,13 @@ export const baseRoutes: RouteConfig[] = [
       icon: "404",
     },
     children: [
-      {
-        path: '401',
-        component: () => import('@/views/error-page/401.vue'),
-        meta: {
-          title: '401'
-        }
-      },
+      // {
+      //   path: '401',
+      //   component: () => import('@/views/error-page/401.vue'),
+      //   meta: {
+      //     title: '401'
+      //   }
+      // },
       {
         path: '404',
         component: () => import('@/views/error-page/404.vue'),
@@ -86,13 +86,13 @@ export const baseRoutes: RouteConfig[] = [
       hidden: true
     }
   },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401.vue'),
-    meta: {
-      hidden: true
-    }
-  },
+  // {
+  //   path: '/401',
+  //   component: () => import('@/views/error-page/401.vue'),
+  //   meta: {
+  //     hidden: true
+  //   }
+  // },
   {
     path: "/login",
     component: () =>
