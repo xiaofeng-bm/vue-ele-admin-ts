@@ -22,15 +22,15 @@ export default class extends Vue {
   @Prop({ required: true }) private value!: string;
   private jsonEditor?: Editor;
 
-  @Watch("value")
-  private onValueChange(value: string) {
-    if (this.jsonEditor) {
-      const editorValue = this.jsonEditor.getValue();
-      if (value !== editorValue) {
-        this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
-      }
-    }
-  }
+  // @Watch("value")
+  // private onValueChange(value: string) {
+  //   if (this.jsonEditor) {
+  //     const editorValue = this.jsonEditor.getValue();
+  //     if (value !== editorValue) {
+  //       this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
+  //     }
+  //   }
+  // }
 
   mounted() {
     this.jsonEditor = CodeMirror.fromTextArea(
@@ -41,14 +41,16 @@ export default class extends Vue {
         gutters: ["CodeMirror-lint-markers"],
         theme: "rubyblue",
         lint: true,
+        extraKeys: {
+          "Ctrl-S": (editor) =>{
+            this.$emit('changed', editor.getValue())
+            this.$emit("input", editor.getValue());
+          }
+        }
       }
     );
 
     this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
-    this.jsonEditor.on("change", (editor) => {
-      this.$emit("changed", editor.getValue());
-      this.$emit("input", editor.getValue());
-    });
   }
 
   public setValue(value: string) {
