@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <aside>通过修改右边的json就可以动态的修改左边表格</aside>
+    <aside>修改右边json数据后按Ctrl+S保存就能动态修改左边表格</aside>
 
     <div class="content-wrapper">
       <div class="table-container">
@@ -17,7 +17,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import JsonEditor from "@/components/JsonEditor/index.vue";
 
-const jsonData = `{"config":{"show":["name","age"],"title":{"name":"姓名","age": {"label": "年龄", "width": 100, "show-overflow-tooltip": true} }},"table":[{"name":"摆明","age":22},{"name":"刘浩","age":122222222222222222222222}]}`;
+const jsonData = `{"config":{"show":["name","age"],"title":{"name":"姓名","age": {"label": "年龄", "width": "100"} }},"table":[{"name":"摆明","age":22},{"name":"刘浩","age":122222222222222222222222}]}`;
 
 @Component({
   name: "ConfigTable",

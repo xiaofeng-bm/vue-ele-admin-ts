@@ -60,7 +60,7 @@ export default class extends Vue {
 
   private getAttribute(data: any, type: string) {
     if(isObject(data)) {
-      return data[type] ? data[type]: false
+      return data[type] ? data[type]: null
     } else {
       return type === 'label' ? data : null;
     }

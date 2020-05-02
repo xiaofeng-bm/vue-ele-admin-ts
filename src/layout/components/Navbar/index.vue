@@ -8,7 +8,6 @@
       <el-dropdown
         size="small"
         class="avatar-container right-menu-item hover-effect"
-        trigger="click"
       >
         <span class="title-wrapper">
           <i class="el-icon-user-solid"></i>
@@ -90,6 +89,10 @@ export default class extends Vue {
 
     .title-wrapper {
       color: #5a5e66;
+
+      span {
+        cursor: pointer;
+      }
     }
   }
 }
