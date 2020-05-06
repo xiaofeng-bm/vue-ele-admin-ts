@@ -25,6 +25,29 @@ export const baseRoutes: RouteConfig[] = [
     ],
   },
   {
+    path: "/404",
+    component: () => import("@/views/error-page/404.vue"),
+    meta: {
+      hidden: true,
+    },
+  },
+  {
+    path: "/401",
+    component: () => import("@/views/error-page/401.vue"),
+    meta: {
+      hidden: true,
+    },
+  },
+  {
+    path: "/login",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/login/index.vue"),
+  },
+];
+
+// 动态路由，根据roles角色信息来动态添加
+export const asyncRoutes: RouteConfig[] = [
+  {
     path: "/table",
     component: Layout,
     meta: {
@@ -52,6 +75,16 @@ export const baseRoutes: RouteConfig[] = [
         meta: {
           title: "综合表格",
         },
+        children: [
+          {
+            path: 'edit',
+            component: () => import('@/views/table/components/edit.vue'),
+            meta: {
+              hidden: true,
+              shrink: true
+            }
+          }
+        ]
       },
     ],
   },
@@ -63,46 +96,27 @@ export const baseRoutes: RouteConfig[] = [
       icon: "404",
     },
     children: [
-      // {
-      //   path: '401',
-      //   component: () => import('@/views/error-page/401.vue'),
-      //   meta: {
-      //     title: '401'
-      //   }
-      // },
       {
-        path: '404',
-        component: () => import('@/views/error-page/404.vue'),
+        path: "401",
+        component: () => import("@/views/error-page/401.vue"),
         meta: {
-          title: '404'
-        }
-      }
-    ]
+          title: "401",
+        },
+      },
+      {
+        path: "404",
+        component: () => import("@/views/error-page/404.vue"),
+        meta: {
+          title: "404",
+        },
+      },
+    ],
   },
   {
-    path: '/404',
-    component: () => import('@/views/error-page/404.vue'),
-    meta: {
-      hidden: true
-    }
+    path: "*",
+    redirect: "/404",
+    meta: { hidden: true },
   },
-  // {
-  //   path: '/401',
-  //   component: () => import('@/views/error-page/401.vue'),
-  //   meta: {
-  //     hidden: true
-  //   }
-  // },
-  {
-    path: "/login",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/login/index.vue"),
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    meta: { hidden: true }
-  }
 ];
 
 function createRouter() {

@@ -24,7 +24,7 @@ import errGif from "@/assets/401-images/401.gif";
   name: "Error401",
 })
 export default class extends Vue {
-  private errGif = "errGif" + "?" + +new Date();
+  private errGif = errGif + "?" + +new Date();
 
   private back() {
     if (this.$route.query.noGoBack) {

@@ -6,7 +6,7 @@
       { 'first-level': isFirstLevel },
     ]"
   >
-    <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
+    <template v-if="theOnlyOneChild">
       <sidebar-item-link
         :to="resolvePath(theOnlyOneChild.path)"
         v-if="theOnlyOneChild.meta"

@@ -26,9 +26,19 @@ class App extends VuexModule implements IAppState {
     this.sidebar.opened = !this.sidebar.opened;
     this.sidebar.withoutAnimation = withoutAnimation;
   }
+  @Mutation
+  private SET_SIDEBAR(state: boolean) {
+    this.sidebar.opened = state;
+    this.sidebar.withoutAnimation = false;
+  }
+
   @Action
   public ToggleSideBar(withoutAnimation: boolean) {
     this.TOGGLE_SIDEBAR(withoutAnimation);
+  }
+
+  @Action SetSidebar(state: boolean) {
+    this.SET_SIDEBAR(state)
   }
 }
 

@@ -50,6 +50,13 @@
       >
         登录
       </el-button>
+
+      <div class="tips-container">
+        <div class="tips-item" v-for="user in tipsList" :key="user.username">
+          <span>账号：{{ user.username }}</span>
+          <span>密码：{{ user.password }}</span>
+        </div>
+      </div>
     </el-form>
   </div>
 </template>
@@ -65,11 +72,18 @@ import { UserModule } from "@/store/modules/user";
 export default class extends Vue {
   private loginForm = {
     username: "admin",
-    password: "111111",
+    password: "123456",
   };
   private loginRules = {
     username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   };
+  private tipsList = [
+    { username: 'admin', password: '随便填' },
+    { username: 'zhangshucai', password: '随便填' },
+    { username: 'feiqiaohong', password: '随便填' },
+    { username: 'xuwenmin', password: '随便填' },
+    { username: 'linzhengpeng', password: '随便填' },
+  ]
 
   private loading = false;
   private passwordType = "password"; // 密码框type
@@ -175,4 +189,15 @@ export default class extends Vue {
     color: #454545;
   }
 }
+.tips-container {
+  margin-top: 20px;
+  color: #fff;
+  width: 100%;
+   span {
+     width: 50%;
+     display: inline-block;
+     padding: 4px 0;
+   }
+}
+
 </style>
