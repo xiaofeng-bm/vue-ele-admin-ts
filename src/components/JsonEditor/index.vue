@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import CodeMirror, { Editor } from "codemirror";
 import "codemirror/addon/lint/lint.css";
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/rubyblue.css";
+import "codemirror/theme/material.css";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/addon/lint/lint";
 import "codemirror/addon/lint/json-lint";
@@ -39,7 +39,7 @@ export default class extends Vue {
         lineNumbers: true,
         mode: "application/json",
         gutters: ["CodeMirror-lint-markers"],
-        theme: "rubyblue",
+        theme: "material",
         lint: true,
         extraKeys: {
           "Ctrl-S": (editor) =>{

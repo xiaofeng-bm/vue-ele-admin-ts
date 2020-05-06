@@ -1,119 +1,138 @@
 <template>
-  <div class="app-container">
-    <div class="filter-container">
-      <el-input
-        v-model="listQuery.hosName"
-        placeholder="请输入医院名称..."
-        clearable
-      ></el-input>
-      <el-select
-        v-model="listQuery.province.select"
-        placeholder="省份"
-        clearable
-      >
-        <el-option
-          v-for="item in listQuery.province.options"
-          :key="item"
-          :value="item"
-          :label="item"
-        ></el-option>
-      </el-select>
-      <el-select v-model="listQuery.city.select" placeholder="城市" clearable>
-      </el-select>
-
-      <el-button type="primary" icon="el-icon-search" @click="getList"
-        >搜索</el-button
-      >
-
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        @click="handleAddBtn"
-        >新增</el-button
-      >
-
-      <el-button type="primary" icon="el-icon-download">导出</el-button>
-    </div>
-
-    <div class="table-container">
-      <bm-table :config="config"></bm-table>
-
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="listQuery.page"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="listQuery.limit"
-        :total="listQuery.total"
-        layout="total, sizes, prev, pager, next, jumper"
-      >
-      </el-pagination>
-    </div>
-
-    <el-dialog
-      title="新增医院"
-      width="30%"
-      :visible.sync="addHisDialogInfo.visible"
-    >
-      <el-form
-        ref="addHisForm"
-        :model="addHisDialogInfo.model"
-        :rules="addHisDialogInfo.rules"
-        label-width="auto"
-      >
-        <el-form-item label="医院编码" prop="hosCode">
+  <el-row>
+    <el-col :span="colSize">
+      <div class="app-container">
+        <div class="filter-container">
           <el-input
-            v-model.trim="addHisDialogInfo.model.hosCode"
-            placeholder="请输入医院编码"
+            v-model="listQuery.hosName"
+            placeholder="请输入医院名称..."
+            clearable
           ></el-input>
-        </el-form-item>
-        <el-form-item label="医院名称" prop="hosName">
-          <el-input
-            v-model.trim="addHisDialogInfo.model.hosName"
-            placeholder="请输入医院名称"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="行政级别" prop="level">
-          <el-input
-            v-model.trim="addHisDialogInfo.model.level"
-            placeholder="请输入行政级别"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="省份" prop="province">
-          <el-input
-            v-model.trim="addHisDialogInfo.model.province"
-            placeholder="请选择省份"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="城市" prop="city">
-          <el-input
-            v-model.trim="addHisDialogInfo.model.city"
-            placeholder="请选择城市"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="医院地址">
-          <el-input
-            v-model.trim="addHisDialogInfo.model.address"
-            placeholder="请输入医院地址"
-          ></el-input>
-        </el-form-item>
-      </el-form>
+          <el-select
+            v-model="listQuery.province.select"
+            placeholder="省份"
+            clearable
+          >
+            <el-option
+              v-for="item in listQuery.province.options"
+              :key="item"
+              :value="item"
+              :label="item"
+            ></el-option>
+          </el-select>
+          <el-select
+            v-model="listQuery.city.select"
+            placeholder="城市"
+            clearable
+          >
+          </el-select>
 
-      <div slot="footer">
-        <el-button @click="addHisDialogInfo.visible = false">返回</el-button>
-        <el-button type="primary" @click="handleAddHis">确定</el-button>
+          <el-button type="primary" icon="el-icon-search" @click="getList"
+            >搜索</el-button
+          >
+
+          <el-button type="primary" icon="el-icon-plus" @click="handleAddBtn"
+            >新增</el-button
+          >
+
+          <el-button type="primary" icon="el-icon-download">导出</el-button>
+        </div>
+
+        <div class="table-container">
+          <bm-table v-loading="tableLoading" :config="config">
+            <template v-slot:append>
+              <el-table-column width="150" label="操作" align="center">
+                <template slot-scope="scope">
+                  <el-button type="primary" @click="handleEdit(scope.row)"
+                    >编辑</el-button
+                  >
+                  <el-button type="danger" @click="handleDel(scope.row)"
+                    >删除</el-button
+                  >
+                </template>
+              </el-table-column>
+            </template>
+          </bm-table>
+
+          <bm-pagination
+            :page.sync="listQuery.page"
+            :limit.sync="listQuery.limit"
+            :total="listQuery.total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
+        </div>
+
+        <el-dialog
+          title="新增医院"
+          width="30%"
+          :visible.sync="addHisDialogInfo.visible"
+        >
+          <el-form
+            ref="addHisForm"
+            :model="addHisDialogInfo.model"
+            :rules="addHisDialogInfo.rules"
+            label-width="auto"
+          >
+            <el-form-item label="医院编码" prop="hosCode">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.hosCode"
+                placeholder="请输入医院编码"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="医院名称" prop="hosName">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.hosName"
+                placeholder="请输入医院名称"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="行政级别" prop="level">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.level"
+                placeholder="请输入行政级别"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="省份" prop="province">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.province"
+                placeholder="请选择省份"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="城市" prop="city">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.city"
+                placeholder="请选择城市"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="医院地址">
+              <el-input
+                v-model.trim="addHisDialogInfo.model.address"
+                placeholder="请输入医院地址"
+              ></el-input>
+            </el-form-item>
+          </el-form>
+
+          <div slot="footer">
+            <el-button @click="addHisDialogInfo.visible = false"
+              >返回</el-button
+            >
+            <el-button type="primary" @click="handleAddHis">确定</el-button>
+          </div>
+        </el-dialog>
       </div>
-    </el-dialog>
-  </div>
+    </el-col>
+
+    <router-view></router-view>
+  </el-row>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Form } from "element-ui";
 import { IConfig } from "@/api/types";
-import { defaultAddHospitalData } from '@/api/hospital';
+import { defaultAddHospitalData } from "@/api/hospital";
 import { getHospList, addHosp } from "@/api/hospital";
-import { deepClone } from '@/utils/index';
+import { deepClone } from "@/utils/index";
 
 @Component({
   name: "ComplexTable",
@@ -125,8 +144,7 @@ export default class extends Vue {
   };
   private listQuery = {
     page: 1,
-    pageSize: 10,
-    limit: 10,
+    limit: 20,
     total: 0,
     hosName: "",
     province: {
@@ -138,6 +156,8 @@ export default class extends Vue {
       options: ["北京市"],
     },
   };
+
+  private tableLoading = false;
 
   private addHisDialogInfo = {
     visible: false,
@@ -159,7 +179,12 @@ export default class extends Vue {
     this.getList();
   }
 
+  get colSize() {
+    return this.$route.meta.shrink ? 16 : 24;
+  }
+
   private async getList() {
+    this.tableLoading = true;
     const { data } = await getHospList({
       page: this.listQuery.page,
       limit: this.listQuery.limit,
@@ -167,6 +192,7 @@ export default class extends Vue {
       province: this.listQuery.province.select,
       city: this.listQuery.city.select,
     });
+    this.tableLoading = false;
     this.config = data.config;
     this.listQuery.page = data.page;
     this.listQuery.total = data.total;
@@ -175,6 +201,8 @@ export default class extends Vue {
   private resetFormData() {
     this.addHisDialogInfo.model = deepClone(defaultAddHospitalData);
   }
+
+  // ----------------------------------新增相关------------------------
   // 新增按钮
   private handleAddBtn() {
     this.resetFormData();
@@ -190,6 +218,19 @@ export default class extends Vue {
         this.getList();
       }
     });
+  }
+
+  // -----------------------------编辑&删除-----------------------------
+  handleEdit(row: any) {
+    this.$router.push({
+      path: "/table/complex-table/edit",
+      query: {
+        id: row.id,
+      },
+    });
+  }
+  handleDel(row: any) {
+    //todo
   }
 
   // ---------------------------- 分页相关 -----------------------------

@@ -46,7 +46,6 @@ export default class extends Vue {
   private name = '白敏'
 
   get tableConfig() {
-    console.log('触发了')
     const _config = Object.assign({}, this.config);
     if (typeof _config.config === "undefined") {
       _config.config = {

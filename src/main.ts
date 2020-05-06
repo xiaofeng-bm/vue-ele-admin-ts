@@ -12,7 +12,9 @@ import "@/style/index.scss";
 import Settings from "./settings";
 
 import BmTable from "@/components/BmTable/index.vue";
+import BmPagination from "@/components/Pagination/index.vue";
 Vue.component("bm-table", BmTable);
+Vue.component("bm-pagination", BmPagination);
 
 // 引入svg-Icon
 import "@/icons";

@@ -96,8 +96,8 @@ import { addHosp, getHospList } from "@/api/hospital";
 export default class extends Vue {
   private config: IConfig = {
     config: {},
-    table: []
-  }
+    table: [],
+  };
 
   private addHisDialogInfo = {
     visible: false,
@@ -131,9 +131,76 @@ export default class extends Vue {
   }
 
   private async getList() {
-    const { data } = await getHospList();
-
-    this.config = data.config;
+    this.config = {
+      config: {
+        show: [
+          "index",
+          "hosCode",
+          "hosName",
+          "level",
+          "province",
+          "city",
+          "address",
+        ],
+        title: {
+          index: { type: 'index' },
+          hosCode: { label: "医院编码" },
+          hosName: { label: "医院名称", width: 200, 'show-overflow-tooltip': true },
+          level: { label: "行政等级" },
+          province: "省份",
+          city: "城市",
+          address: { label: "地址", width: 400, 'show-overflow-tooltip': true },
+        },
+      },
+      table: [
+        {
+          id: 1,
+          hosCode: "9141",
+          hosName: "中国人民解放军第306医院（北京第306医院）",
+          level: "三级医院",
+          province: "北京市",
+          city: "北京市",
+          address: "",
+        },
+        {
+          id: 2,
+          hosCode: "9156",
+          hosName: "北京市丰台区妇幼保健院（丰台妇幼保健院）",
+          level: "二级医院",
+          province: "北京市",
+          city: "北京市",
+          address: "",
+        },
+        {
+          id: 3,
+          hosCode: "9246",
+          hosName: "北京市南苑医院",
+          level: "二级医院",
+          province: "北京市",
+          city: "北京市",
+          address: "",
+        },
+        {
+          id: 4,
+          hosCode: "50978",
+          hosName: "北京市人民医院（北京大学人民医院）",
+          level: "二级医院",
+          province: "北京市",
+          city: "北京市",
+          address: "",
+        },
+        {
+          id: 5,
+          hosCode: "38328",
+          hosName: "北京协和医院",
+          level: "三级医院",
+          province: "北京市",
+          city: "北京市",
+          address:
+            "东单院区）北京市东城区帅府园一号，100730；（西单院区）北京市西城区大木仓胡同41号，100032",
+        },
+      ],
+    };
     this.oldList = this.config.table.map((v) => v.id);
     this.newList = this.oldList.slice();
     this.$nextTick(() => {

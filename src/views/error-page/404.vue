@@ -3,17 +3,17 @@
     <div class="pic-404">
       <el-row>
         <el-col :span="12">
+          <el-button icon="el-icon-arrow-left" class="back-btn" @click="back"
+            >返回</el-button
+          >
+          <h2>404页面找不到了</h2>
+        </el-col>
+        <el-col :span="12">
           <img
             class="pic-404__parent"
             src="@/assets/404-images/404.png"
             alt="404"
           />
-        </el-col>
-        <el-col :span="12">
-          <h2>页面找不到了</h2>
-          <el-button icon="el-icon-arrow-left" class="back-btn" @click="back"
-            >返回</el-button
-          >
         </el-col>
       </el-row>
     </div>
