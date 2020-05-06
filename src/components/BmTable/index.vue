@@ -6,8 +6,9 @@
   >
     <!-- 前置插槽预留 -->
     <slot name="prepend"></slot>
-    <slot v-for="key in tableConfig.config.show">
+    <slot v-for="(key, index) in tableConfig.config.show">
       <el-table-column
+        :key="`${key}${index}`"
         :type="getAttribute(tableConfig.config.title[key], 'type')"
         :label="getAttribute(tableConfig.config.title[key], 'label')"
         :fixed="getAttribute(tableConfig.config.title[key], 'fixed')"

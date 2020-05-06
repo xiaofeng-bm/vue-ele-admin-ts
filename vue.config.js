@@ -10,7 +10,7 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin/' : '/',
   devServer: {
     port: devServerPort, // 端口
-    open: true, // 启动时自动打开
+    open: false, // 启动时自动打开
     progress: true, // 展示进度条
   },
   pluginOptions: {
