@@ -6,7 +6,7 @@ set -e
 git pull 
 
 # 安装node_modules包
-npm install:
+# npm install:
 
 # 打包
 npm run build
