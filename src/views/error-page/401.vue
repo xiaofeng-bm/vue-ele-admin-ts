@@ -18,13 +18,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-// import errGif from 'assets/401-images/401.gif'
+import errGif from "@/assets/401-images/401.gif";
 
 @Component({
   name: "Error401",
 })
 export default class extends Vue {
-  private errGif = 'errGif' + '?' + +new Date()
+  private errGif = "errGif" + "?" + +new Date();
 
   private back() {
     if (this.$route.query.noGoBack) {
