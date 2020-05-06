@@ -2,7 +2,7 @@
  * @Description: 滚动函数
  * @Author: 晓枫
  * @Date: 2020-05-06 17:48:01
- * @LastEditTime: 2020-05-06 17:50:53
+ * @LastEditTime: 2020-05-06 18:04:41
  */
 
 
@@ -13,5 +13,5 @@
  * @param callback 回调函数
  */
  function scroll(to: number, duration: number, callback?: Function) {
-   
+   // todo
  }
