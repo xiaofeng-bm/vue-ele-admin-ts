@@ -15,3 +15,8 @@ export interface IConfig {
   config: Object | null,
   table: any[]
 }
+
+export interface IResponse {
+  code: number,
+  [propName:string]: any
+}

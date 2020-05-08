@@ -92,16 +92,37 @@
               ></el-input>
             </el-form-item>
             <el-form-item label="省份" prop="province">
-              <el-input
-                v-model.trim="addHisDialogInfo.model.province"
+              <el-select
+                v-model="addHisDialogInfo.model.province.select"
+                filterable
                 placeholder="请选择省份"
-              ></el-input>
+                clearable
+                @change="handleGetCity"
+              >
+                <el-option
+                  v-for="item in addHisDialogInfo.model.province.options"
+                  :key="item.code"
+                  :label="item.name"
+                  :value="item.province"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="城市" prop="city">
-              <el-input
-                v-model.trim="addHisDialogInfo.model.city"
+              <el-select
+                v-model="addHisDialogInfo.model.city.select"
+                filterable
                 placeholder="请选择城市"
-              ></el-input>
+                clearable
+              >
+                <el-option
+                  v-for="item in addHisDialogInfo.model.city.options"
+                  :key="item.code"
+                  :label="item.name"
+                  :value="item.province"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="医院地址">
               <el-input
@@ -128,9 +149,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Form } from "element-ui";
-import { IConfig } from "@/api/types";
+import { IConfig, IResponse } from "@/api/types";
 import { defaultAddHospitalData } from "@/api/hospital";
-import { getHospList, addHosp } from "@/api/hospital";
+import { getHospList, addHosp,delHops } from "@/api/hospital";
+import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
 
 @Component({
@@ -206,6 +228,18 @@ export default class extends Vue {
   private handleAddBtn() {
     this.resetFormData();
     this.addHisDialogInfo.visible = true;
+    this.getProvince();
+  }
+
+  // 获取省份信息
+  private async getProvince() {
+    const { data } = await getProvince();
+    this.addHisDialogInfo.model.province.options = data;
+  }
+  // 根据省份信息获取城市信息
+  private async handleGetCity(province: string) {
+    const { data } = await getCity({ province: province });
+    this.addHisDialogInfo.model.city.options = data;
   }
 
   // 新增医院
@@ -220,7 +254,7 @@ export default class extends Vue {
   }
 
   // -----------------------------编辑&删除-----------------------------
-  handleEdit(row: any) {
+  private handleEdit(row: any) {
     this.$router.push({
       path: "/table/complex-table/edit",
       query: {
@@ -228,16 +262,19 @@ export default class extends Vue {
       },
     });
   }
-  handleDel(row: any) {
-    //todo
+  private async handleDel(row: any) {
+    const res: any = await delHops({ id: row.id });
+    if(res.code === 0) {
+      this.getList();
+    }
   }
 
   // ---------------------------- 分页相关 -----------------------------
-  handleSizeChange(val: number) {
+  private handleSizeChange(val: number) {
     this.listQuery.limit = val;
     this.getList();
   }
-  handleCurrentChange(val: number) {
+  private handleCurrentChange(val: number) {
     this.listQuery.page = val;
     this.getList();
   }
