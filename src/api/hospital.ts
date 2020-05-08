@@ -1,12 +1,17 @@
 import request from "@/utils/request";
-import { IArticalData } from "./types";
 
 export const defaultAddHospitalData = {
   hosCode: "",
   hosName: "",
   level: "",
-  province: "",
-  city: "",
+  province: {
+    select: "",
+    options: [],
+  },
+  city: {
+    select: "",
+    options: [],
+  },
   address: "",
 };
 
@@ -25,3 +30,4 @@ export function addHosp(data: any) {
     data,
   });
 }
+
