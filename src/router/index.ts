@@ -89,6 +89,23 @@ export const asyncRoutes: RouteConfig[] = [
     ],
   },
   {
+    path: '/components',
+    component: Layout,
+    meta: {
+      title: '组件',
+      icon: 'component'
+    },
+    children: [
+      {
+        path: 'split-pane',
+        component: () => import("@/views/components-demo/split-pane.vue"),
+        meta: {
+          title: '拖拽组件'
+        }
+      }
+    ]
+  },
+  {
     path: "/error",
     component: Layout,
     meta: {
