@@ -31,3 +31,10 @@ export function addHosp(data: any) {
   });
 }
 
+export function delHops(data: any) {
+  return request({
+    url: "hospital/del",
+    method: "post",
+    data,
+  });
+}

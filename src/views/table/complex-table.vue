@@ -149,9 +149,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Form } from "element-ui";
-import { IConfig } from "@/api/types";
+import { IConfig, IResponse } from "@/api/types";
 import { defaultAddHospitalData } from "@/api/hospital";
-import { getHospList, addHosp } from "@/api/hospital";
+import { getHospList, addHosp,delHops } from "@/api/hospital";
 import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
 
@@ -254,7 +254,7 @@ export default class extends Vue {
   }
 
   // -----------------------------编辑&删除-----------------------------
-  handleEdit(row: any) {
+  private handleEdit(row: any) {
     this.$router.push({
       path: "/table/complex-table/edit",
       query: {
@@ -262,16 +262,19 @@ export default class extends Vue {
       },
     });
   }
-  handleDel(row: any) {
-    //todo
+  private async handleDel(row: any) {
+    const res: any = await delHops({ id: row.id });
+    if(res.code === 0) {
+      this.getList();
+    }
   }
 
   // ---------------------------- 分页相关 -----------------------------
-  handleSizeChange(val: number) {
+  private handleSizeChange(val: number) {
     this.listQuery.limit = val;
     this.getList();
   }
-  handleCurrentChange(val: number) {
+  private handleCurrentChange(val: number) {
     this.listQuery.page = val;
     this.getList();
   }

@@ -34,6 +34,13 @@ service.interceptors.response.use(
       });
       return Promise.reject(new Error(res.meg || "Error"));
     } else {
+      if(res.message) {
+        Notification({
+          title: '成功',
+          message: res.message,
+          type: 'success'
+        })
+      }
       return response.data;
     }
   },
