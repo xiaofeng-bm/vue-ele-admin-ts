@@ -143,7 +143,7 @@ export default class extends Vue {
           "address",
         ],
         title: {
-          index: { type: 'index' },
+          index: { type: 'index', align: 'center' },
           hosCode: { label: "医院编码" },
           hosName: { label: "医院名称", width: 200, 'show-overflow-tooltip': true },
           level: { label: "行政等级" },

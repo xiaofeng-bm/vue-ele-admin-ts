@@ -26,6 +26,6 @@ export default class extends Vue {
   overflow: hidden;
 }
 .fixed-header + .app-main {
-  margin-top: 50px;
+  padding-top: 50px;
 }
 </style>

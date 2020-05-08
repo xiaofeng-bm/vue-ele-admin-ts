@@ -58,8 +58,7 @@
             :page.sync="listQuery.page"
             :limit.sync="listQuery.limit"
             :total="listQuery.total"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
+            @pagination="getList"
           />
         </div>
 
