@@ -32,6 +32,15 @@
               </ol>
             </li>
             <li>错误页面，401,404页面</li>
+            <li>
+              <span>组件</span>
+              <ol>
+                <li>
+                  拖拽组件：可以通过拖拽中间的线进行左右拖拽动态改变宽度
+                  <router-link to="/components/split-pane">试一试</router-link>
+                </li>
+              </ol>
+            </li>
           </ol>
         </p>
       </div>
