@@ -9,6 +9,8 @@
       :page-sizes="pageSizes"
       :total="total"
       :layout="layout"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
     >
     </el-pagination>
   </div>
@@ -16,6 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { scrollTo } from '@/utils/scroll-to';
 
 @Component({
   name: "Pagination",
@@ -25,9 +28,11 @@ export default class extends Vue {
   @Prop({ default: 20 }) private limit!: number;
   @Prop({ default: 1 }) private page!: number;
   @Prop({ default: () => [10, 20, 50, 100] }) private pageSizes!: number[];
-  @Prop({ default: 'total, sizes, prev, pager, next, jumper' }) private layout!: string
+  @Prop({ default: "total, sizes, prev, pager, next, jumper" })
+  private layout!: string;
   @Prop({ default: true }) private background!: boolean;
   @Prop({ default: false }) private hidden!: boolean;
+  @Prop({ default: true }) private autoScroll!: boolean;
 
   get pageSize() {
     return this.limit;
@@ -41,6 +46,19 @@ export default class extends Vue {
   }
   set currentPage(value) {
     this.$emit("update:page", value);
+  }
+
+  handleSizeChange(value: number) {
+    this.$emit('pagination', { page: this.currentPage, limit: value });
+    if(this.autoScroll) {
+      scrollTo(0, 800)
+    }
+  }
+  handleCurrentChange(value: number) {
+    this.$emit('pagination', { page: value, limit: this.pageSize })
+    if (this.autoScroll) {
+      scrollTo(0, 800)
+    }
   }
 }
 </script>
