@@ -93,7 +93,9 @@ export default class extends Vue {
     (this.$refs.loginForm as Form).validate(async (valid: boolean) => {
       if (valid) {
         this.loading = true;
-        await UserModule.Login(this.loginForm);
+        await UserModule.Login(this.loginForm).catch(err => {
+          this.loading = false;
+        });
         this.loading = false;
         this.$router.push({ path: "/" });
       }

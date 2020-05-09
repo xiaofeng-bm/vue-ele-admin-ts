@@ -34,19 +34,22 @@ service.interceptors.response.use(
       });
       return Promise.reject(new Error(res.meg || "Error"));
     } else {
-      if(res.message) {
+      if (res.message) {
         Notification({
-          title: '成功',
+          title: "成功",
           message: res.message,
-          type: 'success'
-        })
+          type: "success",
+        });
       }
       return response.data;
     }
   },
   (error) => {
     console.log("err" + error); // for debug
-    const { msg } = error.response.data;
+    let msg = "网络错误";
+    if (error.response && error.response.data) {
+      msg = error.response.data;
+    }
     Notification({
       title: "请求失败",
       message: msg || "网络错误",
