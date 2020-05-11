@@ -38,3 +38,19 @@ export function delHops(data: any) {
     data,
   });
 }
+
+export function hospDetail(params: any) {
+  return request({
+    url: "hospital/detail",
+    method: "get",
+    params,
+  });
+}
+
+export function editHops(data: any) {
+  return request({
+    url: "hospital/edit",
+    method: "post",
+    data,
+  });
+}

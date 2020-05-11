@@ -2,43 +2,44 @@
   <el-row>
     <el-col :span="colSize">
       <div class="app-container">
-        <div class="filter-container">
-          <el-input
-            v-model="listQuery.hosName"
-            placeholder="请输入医院名称..."
-            clearable
-          ></el-input>
-          <el-select
-            v-model="listQuery.province.select"
-            placeholder="省份"
-            clearable
-          >
-            <el-option
-              v-for="item in listQuery.province.options"
-              :key="item"
-              :value="item"
-              :label="item"
-            ></el-option>
-          </el-select>
-          <el-select
-            v-model="listQuery.city.select"
-            placeholder="城市"
-            clearable
-          >
-          </el-select>
+        <el-card>
+          <div slot="header" class="filter-container">
+            <el-input
+              v-model="listQuery.hosName"
+              placeholder="请输入医院名称..."
+              clearable
+            ></el-input>
+            <el-select
+              v-model="listQuery.province.select"
+              placeholder="省份"
+              clearable
+            >
+              <el-option
+                v-for="item in listQuery.province.options"
+                :key="item"
+                :value="item"
+                :label="item"
+              ></el-option>
+            </el-select>
+            <el-select
+              v-model="listQuery.city.select"
+              placeholder="城市"
+              clearable
+            >
+            </el-select>
 
-          <el-button type="primary" icon="el-icon-search" @click="getList"
-            >搜索</el-button
-          >
+            <el-button type="primary" icon="el-icon-search" @click="getList"
+              >搜索</el-button
+            >
 
-          <el-button type="primary" icon="el-icon-plus" @click="handleAddBtn"
-            >新增</el-button
-          >
+            <el-button type="primary" icon="el-icon-plus" @click="handleAddBtn"
+              >新增</el-button
+            >
 
-          <el-button type="primary" icon="el-icon-download">导出</el-button>
-        </div>
+            <el-button type="primary" icon="el-icon-download">导出</el-button>
+          </div>
 
-        <div class="table-container">
+          <div class="table-container">
           <bm-table v-loading="tableLoading" :config="config">
             <template v-slot:append>
               <el-table-column width="150" label="操作" align="center">
@@ -61,6 +62,9 @@
             @pagination="getList"
           />
         </div>
+        </el-card>
+
+        
 
         <el-dialog
           title="新增医院"
@@ -119,7 +123,7 @@
                   v-for="item in addHisDialogInfo.model.city.options"
                   :key="item.code"
                   :label="item.name"
-                  :value="item.province"
+                  :value="item.city"
                 >
                 </el-option>
               </el-select>
@@ -151,9 +155,10 @@ import { Component, Vue } from "vue-property-decorator";
 import { Form } from "element-ui";
 import { IConfig, IResponse } from "@/api/types";
 import { defaultAddHospitalData } from "@/api/hospital";
-import { getHospList, addHosp,delHops } from "@/api/hospital";
+import { getHospList, addHosp, delHops } from "@/api/hospital";
 import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
+import { scrollTo } from "@/utils/scroll-to";
 
 @Component({
   name: "ComplexTable",
@@ -258,13 +263,14 @@ export default class extends Vue {
     this.$router.push({
       path: "/table/complex-table/edit",
       query: {
-        id: row.id,
+        hosCode: row.hosCode,
       },
     });
+    scrollTo(0, 800);
   }
   private async handleDel(row: any) {
     const res: any = await delHops({ id: row.id });
-    if(res.code === 0) {
+    if (res.code === 0) {
       this.getList();
     }
   }

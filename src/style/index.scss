@@ -58,3 +58,10 @@ aside {
     vertical-align: middle;
   }
 }
+
+
+// ---------------reset element-ui css-----------------
+// 给el-col添加过渡0.28，时间和左侧侧边栏持续时间一样
+.el-col {
+  transition: width 0.28s;
+} 

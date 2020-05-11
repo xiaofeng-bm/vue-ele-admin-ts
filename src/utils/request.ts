@@ -1,6 +1,7 @@
 import axios from "axios";
-import { Notification } from "element-ui";
+import { Notification, MessageBox } from "element-ui";
 import { getToken } from "@/utils/auth";
+import { removeToken } from './auth';
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -24,6 +25,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
+    console.log('sss=', window.history)
     const res = response.data;
     const errMsg = res.msg || "请求失败";
     if (res.code !== 0) {
@@ -47,14 +49,30 @@ service.interceptors.response.use(
   (error) => {
     console.log("err" + error); // for debug
     let msg = "网络错误";
+    let status;
     if (error.response && error.response.data) {
       msg = error.response.data;
+      status = error.response.status;
     }
-    Notification({
-      title: "请求失败",
-      message: msg || "网络错误",
-      type: "error",
-    });
+    if(status === 401) {
+      MessageBox.alert('登录过期，请返回重新登录', '提示', {
+        confirmButtonText: '确定',
+        callback: action => {
+          removeToken();
+          location.href="/login"
+        }
+      })
+    } else {
+      Notification({
+        title: "请求失败",
+        message: msg || "网络错误",
+        type: "error",
+      });
+    }
+    
+
+    // 401重定向到登录页
+    console.log(error.response.status)
     return Promise.reject(error);
   }
 );
