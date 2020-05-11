@@ -1,5 +1,6 @@
 <template>
   <el-table
+    class="bm-table-container"
     :data="tableConfig.table"
     v-bind="$attrs"
     v-on="$listeners"
@@ -73,4 +74,8 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bm-table-container {
+  transition: width 0.28s;
+}
+</style>
