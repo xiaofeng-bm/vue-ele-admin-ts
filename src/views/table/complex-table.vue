@@ -13,12 +13,13 @@
               v-model="listQuery.province.select"
               placeholder="省份"
               clearable
+              @change="provinceGetCity"
             >
               <el-option
                 v-for="item in listQuery.province.options"
-                :key="item"
-                :value="item"
-                :label="item"
+                :key="item.code"
+                :value="item.name"
+                :label="item.name"
               ></el-option>
             </el-select>
             <el-select
@@ -26,6 +27,12 @@
               placeholder="城市"
               clearable
             >
+              <el-option
+                v-for="item in listQuery.city.options"
+                :key="item.code"
+                :value="item.name"
+                :label="item.name"
+              ></el-option>
             </el-select>
 
             <el-button type="primary" icon="el-icon-search" @click="getList"
@@ -40,31 +47,29 @@
           </div>
 
           <div class="table-container">
-          <bm-table v-loading="tableLoading" :config="config">
-            <template v-slot:append>
-              <el-table-column width="150" label="操作" align="center">
-                <template slot-scope="scope">
-                  <el-button type="primary" @click="handleEdit(scope.row)"
-                    >编辑</el-button
-                  >
-                  <el-button type="danger" @click="handleDel(scope.row)"
-                    >删除</el-button
-                  >
-                </template>
-              </el-table-column>
-            </template>
-          </bm-table>
+            <bm-table v-loading="tableLoading" :config="config">
+              <template v-slot:append>
+                <el-table-column width="150" label="操作" align="center">
+                  <template slot-scope="scope">
+                    <el-button type="primary" @click="handleEdit(scope.row)"
+                      >编辑</el-button
+                    >
+                    <el-button type="danger" @click="handleDel(scope.row)"
+                      >删除</el-button
+                    >
+                  </template>
+                </el-table-column>
+              </template>
+            </bm-table>
 
-          <bm-pagination
-            :page.sync="listQuery.page"
-            :limit.sync="listQuery.limit"
-            :total="listQuery.total"
-            @pagination="getList"
-          />
-        </div>
+            <bm-pagination
+              :page.sync="listQuery.page"
+              :limit.sync="listQuery.limit"
+              :total="listQuery.total"
+              @pagination="getList"
+            />
+          </div>
         </el-card>
-
-        
 
         <el-dialog
           title="新增医院"
@@ -168,6 +173,7 @@ export default class extends Vue {
     config: {},
     table: [],
   };
+
   private listQuery = {
     page: 1,
     limit: 20,
@@ -175,11 +181,11 @@ export default class extends Vue {
     hosName: "",
     province: {
       select: "",
-      options: ["北京市"],
+      options: [],
     },
     city: {
       select: "",
-      options: ["北京市"],
+      options: [],
     },
   };
 
@@ -203,6 +209,7 @@ export default class extends Vue {
 
   created() {
     this.getList();
+    this.getInitProvince();
   }
 
   get colSize() {
@@ -222,6 +229,23 @@ export default class extends Vue {
     this.config = data.config;
     this.listQuery.page = data.page;
     this.listQuery.total = data.total;
+  }
+
+  private async getInitProvince() {
+    const { data } = await getProvince();
+    this.listQuery.province.options = data;
+  }
+  // 通过省份获取城市
+  private async provinceGetCity(province: string) {
+    if (province) {
+      this.listQuery.city.select = '';
+      this.listQuery.city.options = [];
+      const provinceItem: any = this.listQuery.province.options.find((item: any) => {
+        return item.name === province;
+      })
+      const { data } = await getCity({ province: provinceItem.province });
+      this.listQuery.city.options = data;
+    }
   }
 
   private resetFormData() {

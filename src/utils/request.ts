@@ -25,7 +25,6 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log('sss=', window.history)
     const res = response.data;
     const errMsg = res.msg || "请求失败";
     if (res.code !== 0) {
