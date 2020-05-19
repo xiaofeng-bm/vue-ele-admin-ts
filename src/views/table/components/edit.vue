@@ -40,7 +40,7 @@
               v-for="item in addHisDialogInfo.model.province.options"
               :key="item.code"
               :label="item.name"
-              :value="item.province"
+              :value="item.name"
             >
             </el-option>
           </el-select>
@@ -56,7 +56,7 @@
               v-for="item in addHisDialogInfo.model.city.options"
               :key="item.code"
               :label="item.name"
-              :value="item.city"
+              :value="item.name"
             >
             </el-option>
           </el-select>
@@ -143,12 +143,13 @@ export default class extends Vue {
       city: this.addHisDialogInfo.model.city.select,
       address: this.addHisDialogInfo.model.address
     });
-    this.goBack();
+    this.goBack({ refresh: true });
   }
 
-  private goBack() {
+  private goBack(params?: any) {
     this.$router.push({
-      path: '/table/complex-table'
+      name: 'complex-table',
+      params
     })
   }
 }

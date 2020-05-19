@@ -156,7 +156,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { Form } from "element-ui";
 import { IConfig, IResponse } from "@/api/types";
 import { defaultAddHospitalData } from "@/api/hospital";
@@ -164,6 +164,7 @@ import { getHospList, addHosp, delHops } from "@/api/hospital";
 import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
 import { scrollTo } from "@/utils/scroll-to";
+import { Route } from 'vue-router';
 
 @Component({
   name: "ComplexTable",
@@ -206,6 +207,13 @@ export default class extends Vue {
       city: [{ required: true, message: "城市不能为空", trigger: "blur" }],
     },
   };
+
+  @Watch('$route')
+  private onRouteChange(route: Route) {
+    if(route.params.refresh) {
+      this.getList();
+    }
+  }
 
   created() {
     this.getList();
