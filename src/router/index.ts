@@ -165,6 +165,40 @@ export const asyncRoutes: RouteConfig[] = [
     ]
   },
   {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/page',
+    meta: {
+      title: '权限测试页',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'page',
+        component: () => import('@/views/permission/page.vue'),
+        meta: {
+          title: '页面权限',
+        }
+      },
+      {
+        path: 'RMD',
+        component: () => import('@/views/permission/RMD.vue'),
+        meta: {
+          title: 'RMD',
+          roles: ['RMD']
+        }
+      },
+      {
+        path: 'TA',
+        component: () => import('@/views/permission/TA.vue'),
+        meta: {
+          title: 'TA',
+          roles: ['TA']
+        }
+      }
+    ]
+  },
+  {
     path: "/error",
     component: Layout,
     meta: {
