@@ -47,7 +47,7 @@ export default class extends Vue {
   private name = '白敏'
 
   get tableConfig() {
-    const _config = Object.assign({}, this.config);
+    const _config = JSON.parse(JSON.stringify(this.config));
     if (typeof _config.config === "undefined") {
       _config.config = {
         show: [],

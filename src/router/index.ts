@@ -52,7 +52,7 @@ export const asyncRoutes: RouteConfig[] = [
     component: Layout,
     meta: {
       title: "表格",
-      icon: "table",
+      icon: "table"
     },
     children: [
       {
@@ -103,6 +103,64 @@ export const asyncRoutes: RouteConfig[] = [
         meta: {
           title: '拖拽组件'
         }
+      },
+      {
+        path: 'count-to',
+        component: () => import('@/views/components-demo/count-to.vue'),
+        meta: {
+          title: 'count-to'
+        }
+      }
+    ]
+  },
+  {
+    path: '/nested',
+    component: Layout,
+    redirect: '/nested/menu1',
+    meta: {
+      title: '路由嵌套',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: '/menu1',
+        meta: {
+          title: '菜单1'
+        }
+      },
+      {
+        path: '/menu2',
+        meta: {
+          title: '菜单2'
+        },
+        children: [
+          {
+            path: '/menu2-1',
+            meta: {
+              title: '菜单2-1'
+            }
+          },
+          {
+            path: '/menu2-2',
+            meta: {
+              title: '菜单2-2'
+            },
+            children: [
+              {
+                path: '/menu2-2-1',
+                meta: {
+                  title: '菜单2-2-1'
+                }
+              },
+              {
+                path: '/menu2-2-2',
+                meta: {
+                  title: '菜单2-2-2'
+                }
+              },
+            ]
+          }
+        ]
       }
     ]
   },
