@@ -8,6 +8,9 @@ const service = axios.create({
   timeout: 5000, // 超时
 });
 
+// service.defaults.retry = 4;
+
+
 // 请求拦截器
 service.interceptors.request.use(
   (config) => {
