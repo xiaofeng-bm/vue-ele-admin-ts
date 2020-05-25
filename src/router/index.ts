@@ -71,6 +71,7 @@ export const asyncRoutes: RouteConfig[] = [
       },
       {
         path: "complex-table",
+        name: 'complex-table',
         component: () => import("@/views/table/complex-table.vue"),
         meta: {
           title: "综合表格",
