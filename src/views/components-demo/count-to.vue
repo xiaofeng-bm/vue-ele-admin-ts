@@ -47,7 +47,7 @@ import { Component, Vue } from "vue-property-decorator";
 import countTo from 'vue-count-to';
 
 @Component({
-  name: "",
+  name: "CountTo",
   components: {
     countTo
   }
