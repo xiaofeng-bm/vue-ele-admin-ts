@@ -92,6 +92,7 @@ export default class extends Vue {
   private onValueChange(val: string) {
     this.config = JSON.parse(val);
   }
+
 }
 </script>
 
