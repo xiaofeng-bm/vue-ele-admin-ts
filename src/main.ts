@@ -1,7 +1,8 @@
-import Vue from "vue";
+import Vue, { DirectiveOptions } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import * as directives from "@/directives";
 
 // 引入normalize.css初始化css
 import "@/style/normalize.css";
@@ -21,6 +22,10 @@ import "@/icons";
 
 Vue.use(Element, {
   size: Settings.elementSize,
+});
+
+Object.keys(directives).forEach((key) => {
+  Vue.directive(key, (directives as { [key: string]: DirectiveOptions })[key]);
 });
 
 // 引入权限判断守卫

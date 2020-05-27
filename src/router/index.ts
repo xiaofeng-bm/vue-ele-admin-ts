@@ -7,22 +7,15 @@ Vue.use(VueRouter);
 // 基础路由，不限制权限
 export const baseRoutes: RouteConfig[] = [
   {
-    path: "/",
-    redirect: "/dashboard",
+    path: '/redirect',
     component: Layout,
+    meta: { hidden: true },
     children: [
       {
-        path: "/dashboard",
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue"
-          ),
-        meta: {
-          title: "dashboard",
-          icon: "dashboard",
-        },
-      },
-    ],
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index.vue')
+      }
+    ]
   },
   {
     path: "/404",
@@ -42,7 +35,28 @@ export const baseRoutes: RouteConfig[] = [
     path: "/login",
     component: () =>
       import(/* webpackChunkName: "about" */ "@/views/login/index.vue"),
+    meta: {
+      hidden: true
+    }
   },
+  {
+    path: "/",
+    redirect: "/dashboard",
+    component: Layout,
+    children: [
+      {
+        path: "/dashboard",
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue"
+          ),
+        meta: {
+          title: "dashboard",
+          icon: "dashboard",
+        },
+      },
+    ],
+  }
 ];
 
 // 动态路由，根据roles角色信息来动态添加
@@ -109,6 +123,13 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/components-demo/count-to.vue'),
         meta: {
           title: 'count-to'
+        }
+      },
+      {
+        path: 'draggable',
+        component: () => import('@/views/components-demo/draggable-dialog.vue'),
+        meta: {
+          title: '拖拽弹框'
         }
       }
     ]
