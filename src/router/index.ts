@@ -45,7 +45,7 @@ export const baseRoutes: RouteConfig[] = [
     component: Layout,
     children: [
       {
-        path: "/dashboard",
+        path: "dashboard",
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue"
