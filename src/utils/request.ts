@@ -2,6 +2,7 @@ import axios from "axios";
 import { Notification, MessageBox } from "element-ui";
 import { getToken } from "@/utils/auth";
 import { removeToken } from './auth';
+import router from '../router';
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -61,7 +62,9 @@ service.interceptors.response.use(
         confirmButtonText: '确定',
         callback: action => {
           removeToken();
-          location.href="/login"
+          router.push({
+            path: '/login'
+          })
         }
       })
     } else {
