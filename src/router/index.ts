@@ -129,7 +129,8 @@ export const asyncRoutes: RouteConfig[] = [
         path: 'draggable',
         component: () => import('@/views/components-demo/draggable-dialog.vue'),
         meta: {
-          title: '拖拽弹框'
+          title: '拖拽弹框',
+          hidden:true
         }
       }
     ]

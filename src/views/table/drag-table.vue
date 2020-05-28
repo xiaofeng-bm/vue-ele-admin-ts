@@ -1,18 +1,8 @@
 <template>
   <div class="app-container">
     <aside>
-      sdasdsa
+      基于<a href="http://www.sortablejs.com/">sortablejs</a>库，表格可以上下拖拽
     </aside>
-
-    <div class="filter-container">
-      <el-button
-        type="primary"
-        class="filter-item"
-        icon="el-icon-plus"
-        @click="addHisDialogInfo.visible = true"
-        >新增</el-button
-      >
-    </div>
 
     <bm-table :config="config" ref="dragTable" border></bm-table>
 
@@ -25,61 +15,6 @@
       <el-tag>拖拽后顺序</el-tag>
       {{ newList }}
     </div>
-
-    <el-dialog
-      title="新增医院"
-      width="30%"
-      :visible.sync="addHisDialogInfo.visible"
-    >
-      <el-form
-        ref="addHisForm"
-        :model="addHisDialogInfo.model"
-        :rules="addHisDialogInfo.rules"
-        label-width="auto"
-      >
-        <el-form-item label="医院编码" prop="hosCode">
-          <el-input
-            v-model="addHisDialogInfo.model.hosCode"
-            placeholder="请输入医院编码"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="医院名称" prop="hosName">
-          <el-input
-            v-model="addHisDialogInfo.model.hosName"
-            placeholder="请输入医院名称"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="行政级别" prop="level">
-          <el-input
-            v-model="addHisDialogInfo.model.level"
-            placeholder="请输入行政级别"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="省份" prop="province">
-          <el-input
-            v-model="addHisDialogInfo.model.province"
-            placeholder="请选择省份"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="城市" prop="city">
-          <el-input
-            v-model="addHisDialogInfo.model.city"
-            placeholder="请选择城市"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="医院地址">
-          <el-input
-            v-model="addHisDialogInfo.model.address"
-            placeholder="请输入医院地址"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-
-      <div slot="footer">
-        <el-button @click="addHisDialogInfo.visible = false">返回</el-button>
-        <el-button type="primary" @click="handleAddHis">确定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
