@@ -1,6 +1,6 @@
 <template>
   <el-row class="app-container">
-    <aside>dasds</aside>
+    <aside>综合表格：包含完整的增、删、改、查、导出等功能。</aside>
     <el-col :span="colSize">
       <div>
         <el-card>
@@ -326,7 +326,7 @@ export default class extends Vue {
     scrollTo(0, 800);
   }
   private async handleDel(row: any) {
-    const res: any = await delHops({ id: row.id });
+    const res: any = await delHops({ hosCode: row.hosCode });
     if (res.code === 0) {
       this.getList();
     }
