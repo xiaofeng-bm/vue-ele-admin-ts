@@ -1,7 +1,8 @@
 <template>
-  <el-row>
+  <el-row class="app-container">
+    <aside>dasds</aside>
     <el-col :span="colSize">
-      <div class="app-container">
+      <div>
         <el-card>
           <div slot="header" class="filter-container">
             <el-input
@@ -43,13 +44,24 @@
               >新增</el-button
             >
 
-            <!-- <el-button type="primary" icon="el-icon-download">导出</el-button> -->
+            <el-button
+              type="primary"
+              icon="el-icon-download"
+              :loading="exportLoading"
+              @click="handleDownLoad"
+              >导出</el-button
+            >
           </div>
 
           <div class="table-container">
-            <bm-table v-loading="tableLoading" :config="config">
+            <bm-table
+              v-loading="tableLoading"
+              :config="config"
+              row-key="hosCode"
+              @select="handleSelect"
+            >
               <template v-slot:append>
-                <el-table-column width="150" label="操作" align="center">
+                <el-table-column label="操作" align="center" width="150px">
                   <template slot-scope="scope">
                     <el-button type="primary" @click="handleEdit(scope.row)"
                       >编辑</el-button
@@ -164,14 +176,16 @@ import { getHospList, addHosp, delHops } from "@/api/hospital";
 import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
 import { scrollTo } from "@/utils/scroll-to";
-import { Route } from 'vue-router';
+import { Route } from "vue-router";
+import { exportJson2Excel } from "@/utils/excel";
+import { formatJson } from "@/utils";
 
 @Component({
   name: "ComplexTable",
 })
 export default class extends Vue {
   private config: IConfig = {
-    config: {},
+    config: [],
     table: [],
   };
 
@@ -208,9 +222,14 @@ export default class extends Vue {
     },
   };
 
-  @Watch('$route')
+  private exportLoading = false;
+
+  // 选中数据列表
+  private selection = [];
+
+  @Watch("$route")
   private onRouteChange(route: Route) {
-    if(route.params.refresh) {
+    if (route.params.refresh) {
       this.getList();
     }
   }
@@ -246,11 +265,13 @@ export default class extends Vue {
   // 通过省份获取城市
   private async provinceGetCity(province: string) {
     if (province) {
-      this.listQuery.city.select = '';
+      this.listQuery.city.select = "";
       this.listQuery.city.options = [];
-      const provinceItem: any = this.listQuery.province.options.find((item: any) => {
-        return item.name === province;
-      })
+      const provinceItem: any = this.listQuery.province.options.find(
+        (item: any) => {
+          return item.name === province;
+        }
+      );
       const { data } = await getCity({ province: provinceItem.province });
       this.listQuery.city.options = data;
     }
@@ -258,6 +279,10 @@ export default class extends Vue {
 
   private resetFormData() {
     this.addHisDialogInfo.model = deepClone(defaultAddHospitalData);
+  }
+
+  private handleSelect(selection: any) {
+    this.selection = selection;
   }
 
   // ----------------------------------新增相关------------------------
@@ -305,6 +330,22 @@ export default class extends Vue {
     if (res.code === 0) {
       this.getList();
     }
+  }
+
+  // --------------------------------导出------------------------------
+  private handleDownLoad() {
+    this.exportLoading = true;
+    const tHeader: string[] = [];
+    const filterVal: string[] = [];
+    const tableList =
+      this.selection.length > 0 ? this.selection : this.config.table;
+    this.config.config.forEach((item: any) => {
+      item.label && tHeader.push(item.label);
+      item.prop && filterVal.push(item.prop);
+    });
+    const data = formatJson(filterVal, tableList);
+    exportJson2Excel(tHeader, data, "table-list");
+    this.exportLoading = false;
   }
 
   // ---------------------------- 分页相关 -----------------------------

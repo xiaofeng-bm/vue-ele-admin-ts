@@ -12,8 +12,8 @@ export interface IArticalData {
 }
 
 export interface IConfig {
-  config: Object | null,
-  table: any[]
+  config: object[],
+  table: object[]
 }
 
 export interface IResponse {

@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <aside>
-      基于<a href="http://www.sortablejs.com/">sortablejs</a>库，表格可以上下拖拽
+      基于<a href="http://www.sortablejs.com/">sortablejs</a
+      >库，表格可以上下拖拽
     </aside>
 
     <bm-table :config="config" ref="dragTable" border></bm-table>
@@ -30,7 +31,7 @@ import { addHosp, getHospList } from "@/api/hospital";
 })
 export default class extends Vue {
   private config: IConfig = {
-    config: {},
+    config: [],
     table: [],
   };
 
@@ -67,26 +68,15 @@ export default class extends Vue {
 
   private async getList() {
     this.config = {
-      config: {
-        show: [
-          "index",
-          "hosCode",
-          "hosName",
-          "level",
-          "province",
-          "city",
-          "address",
-        ],
-        title: {
-          index: { type: 'index', align: 'center' },
-          hosCode: { label: "医院编码" },
-          hosName: { label: "医院名称", width: 200, 'show-overflow-tooltip': true },
-          level: { label: "行政等级" },
-          province: "省份",
-          city: "城市",
-          address: { label: "地址", width: 400, 'show-overflow-tooltip': true },
-        },
-      },
+      config: [
+        { type: "index" },
+        { label: "医院编码", prop: "hosCode" },
+        { label: "医院名称", prop: "hosName" },
+        { label: "行政级别", prop: "level" },
+        { label: "省份", prop: "province" },
+        { label: "市区", prop: "city" },
+        { label: "地址", prop: "address", "show-overflow-tooltip": true },
+      ],
       table: [
         {
           id: 1,
@@ -136,7 +126,7 @@ export default class extends Vue {
         },
       ],
     };
-    this.oldList = this.config.table.map((v) => v.id);
+    this.oldList = this.config.table.map((v: any) => v.id);
     this.newList = this.oldList.slice();
     this.$nextTick(() => {
       this.setSort();

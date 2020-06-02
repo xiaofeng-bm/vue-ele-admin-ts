@@ -17,3 +17,11 @@ export function deepClone(source: any) {
   });
   return targetObj;
 }
+
+// Format and filter json data using filterKeys array
+export const formatJson = (filterKeys: any, jsonData: any) =>
+  jsonData.map((data: any) =>
+    filterKeys.map((key: string) => {
+      return data[key];
+    })
+  );

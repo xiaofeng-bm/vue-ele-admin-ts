@@ -18,23 +18,15 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import JsonEditor from "@/components/JsonEditor/index.vue";
 
 const jsonData = `{
-  "config":{
-    "show":["type", "hosCode", "hosName", "level", "province", "city", "address"],
-    "title":{
-      "type": {
-        "type": "selection",
-        "align": "center",
-        "width": 60,
-        "fixed": "left"
-      },
-      "hosCode":"医院编码",
-      "hosName": {"label": "医院名称", "width": "200"},
-      "level": { "label": "行政级别", "width": "100"},
-      "province": { "label": "省份", "width": "100"},
-      "city": { "label": "城市", "width": "100"},
-      "address": { "label": "医院地址", "show-overflow-tooltip": true, "width": "400"}
-    }
-  },
+  "config":[
+    { "type": "selection" },
+    { "label": "医院编码", "prop": "hosCode" },
+    { "label": "医院名称", "prop": "hosName" },
+    { "label": "行政级别", "prop": "level" },
+    { "label": "省份", "prop": "province" },
+    { "label": "市区", "prop": "city" },
+    { "label": "地址", "prop": "address" }
+  ],
   "table":[{
     "id": 1,
     "hosCode": "9141",
