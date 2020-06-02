@@ -9,7 +9,10 @@
     <slot name="prepend"></slot>
     <template v-for="column in config.config">
       <slot :name="column.prop || column.type">
-        <el-table-column v-bind="column" :key="column.prop + column.type"></el-table-column>
+        <el-table-column
+          v-bind="column"
+          :key="column.prop + column.type"
+        ></el-table-column>
       </slot>
     </template>
     <!-- 后置插槽预留 -->
@@ -19,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { IConfig } from '@/api/types';
+import { IConfig } from "@/api/types";
 
 @Component({
   name: "BmTable",

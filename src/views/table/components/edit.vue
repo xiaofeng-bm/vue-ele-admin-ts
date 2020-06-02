@@ -147,9 +147,10 @@ export default class extends Vue {
   }
 
   private goBack(params?: any) {
+
     this.$router.push({
       name: 'complex-table',
-      params
+      params: {position: this.$route.query.position, ...params}
     })
   }
 }
@@ -157,7 +158,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .edit-container {
-  padding: 20px 0;
+  padding-left: 20px;
 }
 .text-right {
   text-align: right;

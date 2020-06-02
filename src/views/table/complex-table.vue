@@ -58,6 +58,7 @@
               v-loading="tableLoading"
               :config="config"
               row-key="hosCode"
+              highlight-current-row	
               @select="handleSelect"
             >
               <template v-slot:append>
@@ -176,9 +177,10 @@ import { getHospList, addHosp, delHops } from "@/api/hospital";
 import { getProvince, getCity } from "@/api/province";
 import { deepClone } from "@/utils/index";
 import { scrollTo } from "@/utils/scroll-to";
+import { formatJson } from "@/utils";
 import { Route } from "vue-router";
 import { exportJson2Excel } from "@/utils/excel";
-import { formatJson } from "@/utils";
+
 
 @Component({
   name: "ComplexTable",
@@ -229,6 +231,10 @@ export default class extends Vue {
 
   @Watch("$route")
   private onRouteChange(route: Route) {
+    // scrollTo(Number(route.params.position), 800)
+    if(route.params.position) {
+      scrollTo(Number(route.params.position), 800)
+    }
     if (route.params.refresh) {
       this.getList();
     }
@@ -285,6 +291,7 @@ export default class extends Vue {
     this.selection = selection;
   }
 
+
   // ----------------------------------新增相关------------------------
   // 新增按钮
   private handleAddBtn() {
@@ -317,10 +324,12 @@ export default class extends Vue {
 
   // -----------------------------编辑&删除-----------------------------
   private handleEdit(row: any) {
+    const position = document.documentElement.scrollTop;
     this.$router.push({
       path: "/table/complex-table/edit",
       query: {
         hosCode: row.hosCode,
+        position: position.toString()
       },
     });
     scrollTo(0, 800);
