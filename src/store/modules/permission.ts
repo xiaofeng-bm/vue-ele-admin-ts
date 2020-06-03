@@ -10,7 +10,6 @@ import { baseRoutes, asyncRoutes } from "@/router";
 import store from "@/store";
 
 function hasPermission(roles: string[], route: RouteConfig) {
-  console.log('route=', route.meta);
   if (route.meta && route.meta.roles) {
     return roles.some((role) => {
       return route.meta.roles.includes(role);

@@ -203,6 +203,13 @@ export const asyncRoutes: RouteConfig[] = [
         }
       },
       {
+        path: 'directive',
+        component: () => import('@/views/permission/directive.vue'),
+        meta: {
+          title: '指令权限',
+        }
+      },
+      {
         path: 'RMD',
         component: () => import('@/views/permission/RMD.vue'),
         meta: {
