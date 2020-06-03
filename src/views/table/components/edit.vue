@@ -129,9 +129,12 @@ export default class extends Vue {
   }
   // 根据省份信息获取城市信息
   private async handleGetCity(province: string) {
-    const { data } = await getCity({ province: province });
-    this.addHisDialogInfo.model.city.options = data;
     this.addHisDialogInfo.model.city.select = '';
+    const provinceItem: any = this.addHisDialogInfo.model.province.options.find((item: any) => {
+      return item.name === province;
+    })
+    const { data } = await getCity({ province: provinceItem.province });
+    this.addHisDialogInfo.model.city.options = data;
   }
 
   private async handleEditHis() {
