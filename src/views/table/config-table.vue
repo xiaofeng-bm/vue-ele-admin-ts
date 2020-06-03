@@ -19,13 +19,13 @@ import JsonEditor from "@/components/JsonEditor/index.vue";
 
 const jsonData = `{
   "config":[
-    { "type": "selection" },
+    { "type": "selection", "width": "50", "align": "center" },
     { "label": "医院编码", "prop": "hosCode" },
-    { "label": "医院名称", "prop": "hosName" },
+    { "label": "医院名称", "prop": "hosName", "show-overflow-tooltip": true },
     { "label": "行政级别", "prop": "level" },
     { "label": "省份", "prop": "province" },
     { "label": "市区", "prop": "city" },
-    { "label": "地址", "prop": "address" }
+    { "label": "地址", "prop": "address", "show-overflow-tooltip": true }
   ],
   "table":[{
     "id": 1,
