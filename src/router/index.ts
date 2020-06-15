@@ -260,7 +260,7 @@ export const asyncRoutes: RouteConfig[] = [
 
 function createRouter() {
   return new VueRouter({
-    // mode: "history",
+    mode: "history",
     base: process.env.BASE_URL,
     routes: baseRoutes,
   });
